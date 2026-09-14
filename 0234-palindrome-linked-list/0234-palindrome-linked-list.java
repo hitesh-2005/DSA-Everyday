@@ -18,10 +18,8 @@ class Solution {
         }
         return slow;
     }
-    public boolean isPalindrome(ListNode head) {
-        ListNode midNode = findMidNode(head);
-        
-        ListNode curr = midNode;
+    public ListNode reverse(ListNode head){
+        ListNode curr = head;
         ListNode prev = null;
         ListNode next;
         while(curr!=null){
@@ -30,8 +28,11 @@ class Solution {
             prev = curr;
             curr = next;
         }
-
-        ListNode right = prev;
+        return prev;
+    }
+    public boolean isPalindrome(ListNode head) {
+        ListNode midNode = findMidNode(head);
+        ListNode right = reverse(midNode);
         ListNode left = head;
 
         while(right != null){
