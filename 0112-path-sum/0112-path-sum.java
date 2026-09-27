@@ -13,26 +13,44 @@
  *     }
  * }
  */
+// class Solution {
+//     boolean res = false;
+//     public void helper(TreeNode node, int sum, int targetSum){
+//         if(node == null){
+//             return;
+//         }
+//         sum += node.val;
+
+//         if(node.left == null && node.right == null){
+//             if(sum == targetSum){
+//                 res = true;
+//                 return;
+//             }
+//         }
+
+//         helper(node.left,sum,targetSum);
+//         helper(node.right,sum,targetSum);
+//     }
+//     public boolean hasPathSum(TreeNode root, int targetSum) {
+//         helper(root,0,targetSum);
+//         return res;
+//     }
+// }
+
 class Solution {
-    boolean res = false;
-    public void helper(TreeNode root, int sum, int targetSum){
-        if (root == null){
-            return;
-        }
-        sum += root.val;
-        if(root.left == null && root.right == null){
-            if(sum == targetSum){
-                res = true;
-                return;
-            }
+    public boolean helper(TreeNode node,int sum,int targetSum){
+        if(node == null) return false;
+
+        sum += node.val;
+
+        if(node.left == null && node.right == null){
+            return sum == targetSum;
         }
 
-        helper(root.left,sum,targetSum);
-        helper(root.right,sum,targetSum);
-        return;
+        return helper(node.left,sum,targetSum) || helper(node.right,sum,targetSum);
     }
-    public boolean hasPathSum(TreeNode root, int targetSum) {
-        helper(root,0,targetSum);
-        return res;
+
+    public boolean hasPathSum(TreeNode root,int targetSum){
+        return helper(root,0,targetSum);
     }
 }
