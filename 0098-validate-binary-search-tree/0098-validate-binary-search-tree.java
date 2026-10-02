@@ -13,24 +13,50 @@
  *     }
  * }
  */
-class Solution {
-    public void printInOrder(TreeNode node, List<Integer> res){
-        if(node == null){
+class Solution{
+    TreeNode prev = null;
+    boolean res = true;
+    public void inOrder(TreeNode root){
+        if(root == null){
             return;
         }
 
-        printInOrder(node.left,res);
-        res.add(node.val);
-        printInOrder(node.right,res);
-    }
-    public boolean isValidBST(TreeNode root) {
-        List<Integer> res = new ArrayList<>();
-        printInOrder(root,res);
-        for(int i = 1; i<res.size(); i++){
-            if(res.get(i-1)>=res.get(i)){
-                return false;
-            }
+        inOrder(root.left);
+        if(prev == null){
+            prev = root;
         }
-        return true;
+        else{
+            if(root.val<=prev.val){
+                res = false;
+                return;
+            }
+            prev = root;
+        }
+        inOrder(root.right);
+    }
+    public boolean isValidBST(TreeNode root){
+        inOrder(root);
+        return res;
     }
 }
+// class Solution {
+//     public void printInOrder(TreeNode node, List<Integer> res){
+//         if(node == null){
+//             return;
+//         }
+
+//         printInOrder(node.left,res);
+//         res.add(node.val);
+//         printInOrder(node.right,res);
+//     }
+//     public boolean isValidBST(TreeNode root) {
+//         List<Integer> res = new ArrayList<>();
+//         printInOrder(root,res);
+//         for(int i = 1; i<res.size(); i++){
+//             if(res.get(i-1)>=res.get(i)){
+//                 return false;
+//             }
+//         }
+//         return true;
+//     }
+// }
