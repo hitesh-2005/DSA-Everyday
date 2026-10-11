@@ -28,13 +28,14 @@ class Solution {
         traverse(root,freq);
         int maxFreq = Integer.MIN_VALUE;
         for(int key : freq.keySet()){
-            if(freq.get(key)>maxFreq){
-                maxFreq = freq.get(key);
-            }
-        }
+            int count = freq.get(key);
 
-        for(int key : freq.keySet()){
-            if(freq.get(key) == maxFreq){
+            if(count > maxFreq){
+                maxFreq = count;
+                res.clear();
+                res.add(key);
+            }
+            else if(count == maxFreq){
                 res.add(key);
             }
         }
